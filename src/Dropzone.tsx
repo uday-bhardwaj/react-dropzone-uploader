@@ -209,6 +209,7 @@ export interface IDropzoneProps {
 
   autoUpload: boolean
   timeout?: number
+  withCredentials: boolean
 
   initialFiles?: File[]
 
@@ -556,6 +557,7 @@ class Dropzone extends React.Component<IDropzoneProps, { active: boolean; dragge
 
     formData.append('file', fileWithMeta.file)
     if (this.props.timeout) xhr.timeout = this.props.timeout
+    if (this.props.withCredentials) xhr.withCredentials = true
     xhr.send(body || formData)
     fileWithMeta.xhr = xhr
     fileWithMeta.meta.status = 'uploading'
@@ -750,6 +752,7 @@ Dropzone.defaultProps = {
   inputContent: 'Drag Files or Click to Browse',
   inputWithFilesContent: 'Add Files',
   submitButtonDisabled: false,
+  withCredentials: false,  
   submitButtonContent: 'Submit',
   classNames: {},
   styles: {},
@@ -775,7 +778,8 @@ Dropzone.propTypes = {
 
   autoUpload: PropTypes.bool,
   timeout: PropTypes.number,
-
+  withCredentials: PropTypes.bool,
+  
   initialFiles: PropTypes.arrayOf(PropTypes.any),
 
   /* component customization */
